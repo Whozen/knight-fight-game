@@ -1,0 +1,157 @@
+.main-container {
+	width: 1200px;
+	margin: 20px auto;
+}
+
+.flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: nowrap;
+}
+
+.player2 .player-img {
+	text-align: right;
+}
+
+.player-info {
+	margin: 20px 0;
+}
+
+.player-info progress {
+	display: block;
+	height: 35px;
+	width: 350px;
+}
+
+
+.player1 .player-img .hit-action {
+  position: relative;
+  animation-name: hit-action1;
+  animation-duration: 0.2s;
+}
+
+@keyframes hit-action1 {
+  0%   {left:0px; }
+  25%  {left:25px; }
+  50%  {left:50px; }
+  75%  {left:75px; }
+  100% {left:100px; }
+}
+
+.player-img .shield-action {
+  position: relative;
+  animation-name: shield-action;
+  animation-duration: 0.2s;
+}
+
+/*@keyframes shield-action {
+  0%   {width: 200px; height: 200px; }
+  25%  {width:225px; height: 225px; }
+  50%  {width:250px; height: 250px; }
+  75%  {width:225px; height: 225px; }
+  100% {width:200px; height: 200px; }
+}*/
+
+@keyframes shield-action {
+  0%   {opacity: 1; }
+  25%  {opacity: 0.75; }
+  50%  {opacity: 0.5; }
+  75%  {opacity: 0.75; }
+  100% {opacity: 1; }
+}
+
+.player2 .player-img .hit-action {
+  position: relative;
+  animation-name: hit-action2;
+  animation-duration: 0.2s;
+}
+
+@keyframes hit-action2 {
+  0%   {right:0px; }
+  25%  {right:25px; }
+  50%  {right:50px; }
+  75%  {right:75px; }
+  100% {right:100px; }
+}
+
+.player-info {
+	margin: 50px 0;
+}
+
+.player-info h3 {
+	margin-top:0;
+	margin-bottom: 5px;
+}
+
+.player-info progress {
+	margin-bottom: 20px;
+}
+
+.end-container {
+	display: none;
+}
+
+.winner-content .winner-img {
+	display: none;
+	text-align: center;
+}
+
+.winner-content .winner-img p {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.end-container {
+	text-align: center;
+}
+
+.play-again {
+	padding: 15px 20px;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+.play-again:hover {
+	color: white;
+	background-color: black;
+}
+
+.btn-action {
+	padding: 10px 15px;
+	font-weight: bold;
+	border-color: navy;
+	background-color: white;
+	cursor: pointer;
+}
+
+.btn-action:hover {
+	border-color: red;
+	color: maroon;
+}
+
+.btn-action:disabled,
+.btn-action[disabled]{
+	pointer-events: none;
+	border-color: lightgray;
+	color: gray;
+}
+
+.turn-text {
+	margin-top: 0;
+	margin-bottom: 40px;
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.player-moves.disabled .btn-action {
+	cursor: not-allowed;
+	pointer-events: none;
+	border-color: lightgray;
+	color: gray;
+}
+
+.btn-action.hidden-action {
+	display: none;
+}
