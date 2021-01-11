@@ -1,278 +1,387 @@
-var p1shield = false;
-var p2shield = false;
-var p1randomized = false;
-var p2randomized = false;
+class Player {
+  constructor(self, rival) {
+    this.self = self;
+    this.rival = rival;
+    this.randomized = false;
+    this.shielded = false;
+    this.spearFlag = false;
+    this.stolenDagger = 2;
+  }
+
+  autoPlayGame() {
+    var choice = Math.floor((Math.random()*10)%5);
+    var player = document.getElementById(this.self);
+    
+    switch(choice) {
+      case 0: this.swordAttack();
+        break;
+      case 1: 
+        if(player.children[1].children[1].disabled == true) {
+          this.autoPlayGame();
+        } else {
+          this.daggerAttack();
+        }
+        break;
+      case 2: this.shield();
+        break;
+      case 3: this.blackMagic();
+        break;
+      case 4: 
+        if(player.children[1].children[4].classList.contains("hidden-action") == true) {
+          this.autoPlayGame();
+        } else {
+          this.fireSpearAttack();
+        }
+        break;
+      default: break;
+    }
+  }
+
+  swordAttack() {
+    if( this.randomized == true ) {
+      this.randomMove();
+    } else {
+      this.hit(5);
+      this.animatePlayer("hit-action");
+      this.updateAction("You hit rival with sword.");
+      this.showSlash();
+      setTimeout(() => {
+        this.endSlash();
+      }, 500);
+      new Audio('sword_audio.mp3').play();
+      setTimeout(() => {
+        this.removeAnimationClass("hit-action");
+        checkWinner();
+      }, 500);
+      changeTurn();
+    }
+  }
+
+  showExplosion() {
+    var player = document.getElementById(this.rival);
+    var img = player.children[0].children[1];
+    img.style.display = "block";
+  }
+
+  endExplosion() {
+    var player = document.getElementById(this.rival);
+    var img = player.children[0].children[1];
+    img.style.display = "none";
+  }
+
+  showThunder() {
+    var player = document.getElementById(this.self);
+    var img = player.children[0].children[3];
+    img.style.display = "block";
+  }
+
+  endThunder() {
+    var player = document.getElementById(this.self);
+    var img = player.children[0].children[3];
+    img.style.display = "none";
+  }
+
+  showSlash() {
+    var player = document.getElementById(this.rival);
+    var img = player.children[0].children[2];
+    img.style.display = "block";
+  }
+
+  endSlash() {
+    var player = document.getElementById(this.rival);
+    var img = player.children[0].children[2];
+    img.style.display = "none";
+  }
+
+  randomMove() {
+    var choice = Math.floor((Math.random()*10)%4);
+    this.randomized = false;
+
+    switch(choice) {
+      case 0: this.swordAttack();
+        break;
+      case 1: this.daggerAttack();
+        break;
+      case 2: this.shield();
+        break;
+      case 3: this.blackMagic();
+        break;
+      default: break;
+    }
+  }
+
+  daggerAttack() {
+    if( this.randomized == true ) {
+      this.randomMove();
+    } else {
+      this.hit(10);
+      this.movePlayer(10);
+      this.animatePlayer("hit-action");
+      this.updateAction("You moved closer and hit rival with a dagger.");
+      new Audio('sword_audio.mp3').play();
+      setTimeout(() => {
+        this.removeAnimationClass("hit-action");
+        checkWinner();
+      }, 500);
+      changeTurn();
+    }
+  }
+
+  shield() {
+    if( this.randomized == true ) {
+      this.randomMove();
+    } else {
+      this.setShielded(true);
+      this.animatePlayer("shield-action");
+      this.movePlayer(-15);
+      this.updateAction("You moved farther and shielded yourself.");
+      new Audio('shield_audio.mp3').play();
+      setTimeout(() => {
+        this.removeAnimationClass("shield-action");
+      }, 500);
+      changeTurn();
+    }
+  }
+
+  blackMagic() {
+    if( this.randomized == true ) {
+      this.randomMove();
+    } else {
+      var choice = Math.floor((Math.random()*10)%4);
+      switch(choice) {
+        case 0: this.exchangeHealthDistance();
+          break;
+        case 1: this.randomizeMoves();
+          break;
+        case 2: this.stealDagger();
+          break;
+        case 3: this.getFireSpear();
+          break;
+        default: break;
+      }
+      new Audio('magic_audio.mp3').play();
+      this.showThunder();
+      setTimeout(() => {
+        this.endThunder();
+      }, 1000);
+      changeTurn();
+    }
+  }
+
+
+  getFireSpear() {
+    var player = document.getElementById(this.self);
+    var new_button = player.children[1].children[4];
+    
+    new_button.classList.remove("hidden-action");
+    this.spearFlag = 2;
+
+    this.updateAction("You used blackmagic. Satan gave you a spear that burns when used for two turns.");
+  }
+
+  isShielded() {
+    return this.shielded;
+  }
+
+  setShielded(value) {
+    this.shielded = value;
+  }
+
+  hit(damage, rival = true) {
+    if(rival == true) {
+      var player = document.getElementById(this.rival);
+    } else {
+      var player = document.getElementById(this.self);
+    }
+    var health = player.children[2].children[1];
+    var distance = player.children[2].children[3];
+    
+    var p;
+    if(this.rival == "player2") {
+      p = player2;
+    } else {
+      p = player1;
+    }
+
+    if( p.isShielded() == true ) {
+      if(damage >= 8) {
+        damage = damage - 8;
+      } else {
+        damage = 0;
+      }
+      p.setShielded(false);
+    }
+
+    var total_damage;
+    if(rival == true) {
+      total_damage = damage + ((100-distance.value)/4);
+    } else {
+      total_damage = damage;
+    }
+    console.log(total_damage);
+    health.value = health.value - total_damage;
+  }
+
+  movePlayer(moved) {
+    var player = document.getElementById(this.self);
+    var distance = player.children[2].children[3];
+    distance.value = distance.value - moved;
+    var x = 100 - distance.value;
+    if(this.self == "player2") {
+      player.children[0].children[0].style.margin = "0px " + (x*3) + "px 0px 0px";
+    } else {
+      player.children[0].children[0].style.margin = "0px 0px 0px " + (x*3) + "px";
+    }
+  }
+
+  animatePlayer(action) {
+    var player = document.getElementById(this.self);
+    var img = player.children[0].children[0];
+    img.className = action;
+  }
+
+  removeAnimationClass(action) {
+    var player = document.getElementById(this.self);
+    var img = player.children[0].children[0];
+    img.classList.remove(action);
+  }
+
+  updateAction(text) {
+    var player = document.getElementById(this.self);
+    var ptag = player.children[2].children[5];
+    ptag.innerHTML  = text;
+  }
+
+  exchangeHealthDistance() {
+    var player = document.getElementById(this.self);
+    var temp = player.children[2].children[1].value;
+    player.children[2].children[1].value = player.children[2].children[3].value;
+    player.children[2].children[3].value = temp;
+    this.updateAction("You used blackmagic. Your health and distance values exchanged.");
+  }
+
+  randomizeMoves() {
+    if(this.rival == "player2") {
+      player2.setRandomMoves();
+    } else if(this.rival == "player1") {
+      player1.setRandomMoves();
+    }
+    this.updateAction("You randomized opponents moves.");
+  }
+
+  setRandomMoves() {
+    this.randomized = true;
+  }
+
+  stealDagger() {
+    var player2 = document.getElementById(this.self);
+    var player2 = document.getElementById(this.rival);
+    player2.children[1].children[1].disabled = true;
+    this.stolenDagger = 2;
+    this.updateAction("You used blackmagic. You stole rivals dagger for two turns.");
+  }
+
+  fireSpearAttack() {
+    if( this.randomized == true ) {
+      this.randomMove();
+    } else {
+      this.hit(15);
+      this.hit(5, false);
+      this.animatePlayer("hit-action");
+      this.showExplosion();
+      setTimeout(() => {
+        this.endExplosion();
+      }, 1000);
+      this.updateAction("You hit rival with fire spear but i burnt your hand.");
+      new Audio('fire_audio.mp3').play();
+      this.checkFireSpear();
+      setTimeout(() => {
+        this.removeAnimationClass("hit-action");
+        checkWinner();
+      }, 500);
+      changeTurn();
+    }
+  }
+
+  checkFireSpear() {
+    var player = document.getElementById(this.self);
+    var new_button = player.children[1].children[4];
+    this.spearFlag--;
+    if(this.spearFlag == 0) {
+      new_button.classList.add("hidden-action");
+    }
+  }
+
+  isAlive() {
+    var player1 = document.getElementById(this.self).children[2].children[1].value;
+
+    if(player <= 0) {
+      return false;
+    }
+  }
+}
+
+
+let player1 = new Player('player1','player2');
+let player2 = new Player('player2','player1');
+
 var p1turn = true;
 var p2turn = false;
-var p1sword = 0;
-var p2sword = 0;
-var p1spearFlag = 0;
-var p2spearFlag = 0;
 
 function changeTurn() {
-  var player1 = document.getElementById('player1').children[1];
-  var player2 = document.getElementById('player2').children[1];
+  var p1 = document.getElementById('player1').children[1];
+  var p2 = document.getElementById('player2').children[1];
   var tt = document.getElementById('turn_text');
   
   if(p1turn == true) {
     p1turn = false;
     p2turn = true;
 
-    player1.classList.add("disabled");
-    player2.classList.remove("disabled");
+    p1.classList.add("disabled");
+    p2.classList.remove("disabled");
     tt.innerHTML = "Player2 turn";
 
-    if(p1sword != 0) {
-      p1sword--;
+    if(player1.stolenDagger != 0) {
+      player1.stolenDagger--;
     } else {
-      player1.children[1].disabled = false;
+      p1.children[1].disabled = false;
     }
+
+    setTimeout(() => {
+      player2.autoPlayGame();
+    }, 2000);
 
   } else if(p2turn == true) {
     p1turn = true;
     p2turn = false;
     
-    player2.classList.add("disabled");
-    player1.classList.remove("disabled");
+    p2.classList.add("disabled");
+    p1.classList.remove("disabled");
 
     tt.innerHTML = "Player1 turn";
 
-    if(p2sword != 0) {
-      p2sword--;
+    if(player2.stolenDagger != 0) {
+      player2.stolenDagger--;
     } else {
-      player2.children[1].disabled = false;
+      p2.children[1].disabled = false;
     }
   }
 }
 
-function swordAttack(self, rival) {
-  if( ((self == "player1") && (p1randomized == true)) || ((self == "player2") && (p2randomized == true)) ) {
-    randomMove(self, rival);
-  } else {
-    hit(rival, 5);
-    animatePlayer(self, "hit-action");
-    updateAction(self, "You hit rival with sword.");
-    setTimeout(() => {
-      removeAnimationClass(self, "hit-action");
-      checkWinner();
-    }, 500);
-    changeTurn();
-  }
-}
-
-function randomMove(self, rival) {
-  var choice = Math.floor((Math.random()*10)%4);
-  if(self == "player1") {
-    p1randomized = false;
-  } else if(self == "player2") {
-    p2randomized = false;
-  }
-  switch(choice) {
-    case 0: swordAttack(self, rival);
-      break;
-    case 1: daggerAttack(self, rival);
-      break;
-    case 2: shield(self, rival);
-      break;
-    case 3: blackMagic(self, rival);
-      break;
-    default: break;
-  }
-}
-
-function daggerAttack(self, rival) {
-  if( ((self == "player1") && (p1randomized == true)) || ((self == "player2") && (p2randomized == true)) ) {
-    randomMove(self, rival);
-  } else {
-    hit(rival, 10);
-    movePlayer(self, 10);
-    animatePlayer(self, "hit-action");
-    updateAction(self, "You moved closer and hit rival with a dagger.");
-    setTimeout(() => {
-      removeAnimationClass(self, "hit-action");
-      checkWinner();
-    }, 500);
-    changeTurn();
-  }
-}
-
-function shield(self, rival) {
-  if( ((self == "player1") && (p1randomized == true)) || ((self == "player2") && (p2randomized == true)) ) {
-    randomMove(self, rival);
-  } else {
-    if(self == "player1") {
-      p1shield = true;
-    } else {
-      p2shield = true;
-    }
-    animatePlayer(self, "shield-action");
-    movePlayer(self, -15);
-    updateAction(self, "You moved farther and shielded yourself.");
-    setTimeout(() => {
-      removeAnimationClass(self, "shield-action");
-    }, 500);
-    changeTurn();
-  }
-}
-
-function blackMagic(self, rival) {
-  if( ((self == "player1") && (p1randomized == true)) || ((self == "player2") && (p2randomized == true)) ) {
-    randomMove(self, rival);
-  } else {
-    var choice = Math.floor((Math.random()*10)%4);
-    switch(choice) {
-      case 0: exchangeHealthDistance(self);
-        break;
-      case 1: randomizeMoves(self,rival);
-        break;
-      case 2: stealDagger(self,rival);
-        break;
-      case 3: getFireSpear(self);
-        break;
-      default: break;
-    }
-    changeTurn();
-  }
-}
-
-
-function getFireSpear(self) {
-  var player = document.getElementById(self);
-  var new_button = player.children[1].children[4];
-  
-  if(self == "player1") {
-    if(p1spearFlag == 0) {
-      new_button.classList.remove("hidden-action");
-      p1spearFlag = 1;
-      updateAction(self, "You used blackmagic. Satan gave you a spear that burns when used.");
-    } else if(p1spearFlag == 1) {
-      new_button.classList.add("hidden-action");
-      p1spearFlag = 0;
-      updateAction(self, "You used blackmagic. Satan took away the spear cause you demanded too much.");
-    }
-  } else if(self == "player2") {
-    if(p2spearFlag == 0) {
-      new_button.classList.remove("hidden-action");
-      p2spearFlag = 1;
-      updateAction(self, "You used blackmagic. Satan gave you a spear that burns when used.");
-    } else if(p2spearFlag == 1) {
-      new_button.classList.add("hidden-action");
-      p2spearFlag = 0;
-      updateAction(self, "You used blackmagic. Satan took away the spear cause you demanded too much.");
-    }
-  }
-}
-
-
-function hit(rival, damage, dist = true) {
-  var player = document.getElementById(rival);
-  var health = player.children[2].children[1];
-  var distance = player.children[2].children[3];
-  
-  if( ((rival == "player1") && (p1shield == true)) || ((rival == "player2") && (p2shield == true)) ) {
-    damage = damage - 5;
-    p1shield = false;
-    p2shield = false;
-  }
-
-  var total_damage;
-  if(dist == true) {
-    total_damage = damage + ((100-distance.value)/4);
-  } else {
-    total_damage = damage;
-  }
-  console.log(total_damage);
-  health.value = health.value - total_damage;
-}
-
-function movePlayer(self, moved) {
-  var player = document.getElementById(self);
-  var distance = player.children[2].children[3];
-  distance.value = distance.value - moved;
-  var x = 100 - distance.value;
-  if(self == "player2") {
-    player.children[0].children[0].style.padding = "0px " + (x*3) + "px 0px 0px";
-  } else {
-    player.children[0].children[0].style.padding = "0px 0px 0px " + (x*3) + "px";
-  }
-}
-
-function animatePlayer(self, action) {
-  var player = document.getElementById(self);
-  var img = player.children[0].children[0];
-  img.className = action;
-}
-
-function removeAnimationClass(self, action) {
-  var player = document.getElementById(self);
-  var img = player.children[0].children[0];
-  img.classList.remove(action);
-}
-
-function updateAction(self, text) {
-  var player = document.getElementById(self);
-  var ptag = player.children[2].children[5];
-  ptag.innerHTML  = text;
-}
 
 function checkWinner() {
-  var player1 = document.getElementById('player1').children[2].children[1].value;
-  var player2 = document.getElementById('player2').children[2].children[1].value;
+  var p1 = document.getElementById('player1').children[2].children[1].value;
+  var p2 = document.getElementById('player2').children[2].children[1].value;
 
-  if(player1 <= 0) {
+  if(p1 <= 0) {
     //alert("Player 2 wins!!!");
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player2').style.display = "block";
-  } else if(player2 <= 0) {
+  } else if(p2 <= 0) {
     //alert("Player 1 wins!!!");
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player1').style.display = "block";
-  }
-}
-
-function exchangeHealthDistance(self) {
-  var player = document.getElementById(self);
-  var temp = player.children[2].children[1].value;
-  player.children[2].children[1].value = player.children[2].children[3].value;
-  player.children[2].children[3].value = temp;
-  updateAction(self, "You used blackmagic. Your health and distance values exchanged.");
-}
-
-function randomizeMoves(self, rival) {
-  if(rival == "player1") {
-    p1randomized = true;
-  } else if(rival == "player2") {
-    p2randomized = true;
-  }
-  updateAction(self, "You randomized opponents moves.");
-}
-
-function stealDagger(self, rival) {
-  var player1 = document.getElementById(self);
-  var player2 = document.getElementById(rival);
-  player2.children[1].children[1].disabled = true;
-  if(rival == "player1") {
-    p1sword = 1;
-  } else if(rival == "player2") {
-    p2sword = 1;
-  }
-  updateAction(self, "You used blackmagic. You stole rivals dagger for two turns.");
-}
-
-function fireSpearAttack(self, rival) {
-  if( ((self == "player1") && (p1randomized == true)) || ((self == "player2") && (p2randomized == true)) ) {
-    randomMove(self, rival);
-  } else {
-    hit(rival, 15);
-    hit(self, 5, false);
-    animatePlayer(self, "hit-action");
-    updateAction(self, "You hit rival with fire spear but i burnt your hand.");
-    setTimeout(() => {
-      removeAnimationClass(self, "hit-action");
-      checkWinner();
-    }, 500);
-    changeTurn();
   }
 }
