@@ -1,99 +1,100 @@
 body {
-	margin: 0;
+  margin: 0;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 .game-background {
-	background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/08e09130-b992-41f9-bdf6-9ac116532ae6/d6fz3kg-e9884def-8bee-4e7b-b545-b2ac6d3cbf8a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi8wOGUwOTEzMC1iOTkyLTQxZjktYmRmNi05YWMxMTY1MzJhZTYvZDZmejNrZy1lOTg4NGRlZi04YmVlLTRlN2ItYjU0NS1iMmFjNmQzY2JmOGEuanBnIn1dXX0.0D6bGfGrZlSs4uVZ_hGWepjL9hly4LU-DAPc26TTnQU'); 
-	background-position: center; 
-	background-size: cover; 
-	position: relative;
-	overflow: auto;
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/08e09130-b992-41f9-bdf6-9ac116532ae6/d6fz3kg-e9884def-8bee-4e7b-b545-b2ac6d3cbf8a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi8wOGUwOTEzMC1iOTkyLTQxZjktYmRmNi05YWMxMTY1MzJhZTYvZDZmejNrZy1lOTg4NGRlZi04YmVlLTRlN2ItYjU0NS1iMmFjNmQzY2JmOGEuanBnIn1dXX0.0D6bGfGrZlSs4uVZ_hGWepjL9hly4LU-DAPc26TTnQU'); 
+  background-position: center; 
+  background-size: cover; 
+  position: relative;
+  overflow: auto;
 } 
 
 .game-background::after {
-	content: "";
-	position: absolute;
-	background-color: rgba(0,0,0,0.5);
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 1;
+  content: "";
+  position: absolute;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .game-container {
-	width: 1200px;
-	margin: 35px auto;
-	z-index: 5; 
-	position: relative;
+  width: 1200px;
+  margin: 35px auto;
+  z-index: 5; 
+  position: relative;
 }
 
 .flex {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	flex-wrap: nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
 }
 
 .turn-text {
-	margin-top: 0;
-	margin-bottom: 10px;
-	font-size: 40px;
-	font-weight: bold;
-	text-align: center;
-	color: #FFF;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  color: #FFF;
 }
 
 .player-img {
-	position: relative;
+  position: relative;
 }
 
 .player-img .explosion-action, .player-img .thunder-action {
-	display: none;
-	position: absolute; 
-	top: 0; 
-	left: 50%; 
-	transform: translateX(-50%);
+  display: none;
+  position: absolute; 
+  top: 0; 
+  left: 50%; 
+  transform: translateX(-50%);
 }
 
 .player-img .slash-action {
-	display: none;
-	position: absolute; 
-	top: 50%; 
-	transform: translateY(-50%);
-	left: 50%; 
-	transform: translateX(-50%);
+  display: none;
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%);
+  left: 50%; 
+  transform: translateX(-50%);
 }
 
 .player2 .player-img .slash-action {
-	display: none;
-	position: absolute; 
-	top: 50%; 
-	/*transform: translateY(-50%);*/
-	left: 50%; 
-	/*transform: translateX(-50%);*/
-	-webkit-transform: translate(-50%) rotate(180deg);
-	-moz-transform: translate(-50%) rotate(180deg);
-	-ms-transform: translate(-50%) rotate(180deg);
-	-o-transform: translate(-50%) rotate(180deg);
-	transform: translate(-50%) rotate(180deg);
+  display: none;
+  position: absolute; 
+  top: 50%; 
+  /*transform: translateY(-50%);*/
+  left: 50%; 
+  /*transform: translateX(-50%);*/
+  -webkit-transform: translate(-50%) rotate(180deg);
+  -moz-transform: translate(-50%) rotate(180deg);
+  -ms-transform: translate(-50%) rotate(180deg);
+  -o-transform: translate(-50%) rotate(180deg);
+  transform: translate(-50%) rotate(180deg);
 }
 
 .player2 .player-img {
-	text-align: right;
+  text-align: right;
 }
 
 .player-info {
-	margin: 20px 0;
+  margin: 20px 0;
 }
 
 .player-info progress {
-	display: block;
-	height: 45px;
-	width: 100%;
+  display: block;
+  height: 35px;
+  width: 350px;
+  margin-bottom: 20px;
 }
 
 /*progress::-moz-progress-bar { 
@@ -160,82 +161,76 @@ progress {
 }
 
 .player-info {
-	margin-bottom: 50px;
+  margin: 50px 0;
 }
 
 .player-info h3 {
-	margin-top:0;
-	margin-bottom: 5px;
-	color: #FFF;
+  margin-top:0;
+  margin-bottom: 5px;
+  color: #FFF;
 }
 
 .player-info .action-text {
-	color: #FFF;
+  color: #FFF;
 }
 
 
 .end-container {
-	display: none;
+  display: none;
 }
 
 .winner-content .winner-img {
-	display: none;
-	text-align: center;
+  display: none;
+  text-align: center;
 }
 
 .winner-content .winner-img p {
-	font-size: 30px;
-	font-weight: bold;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .end-container {
-	text-align: center;
+  text-align: center;
 }
 
 .play-again {
-	padding: 15px 20px;
-	cursor: pointer;
-	font-size: 18px;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .play-again:hover {
-	color: #FFF;
-	background-color: black;
+  color: #FFF;
+  background-color: black;
 }
 
 .btn-action {
-	padding: 10px 15px;
-	font-weight: bold;
-	border-color: navy;
-	background-color: #FFF;
-	cursor: pointer;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-color: navy;
+  background-color: #FFF;
+  cursor: pointer;
 }
 
 .btn-action:hover {
-	border-color: red;
-	color: maroon;
+  border-color: red;
+  color: maroon;
 }
 
 .btn-action:disabled,
 .btn-action[disabled]{
-	pointer-events: none;
-	border-color: lightgray;
-	color: gray;
+  pointer-events: none;
+  border-color: lightgray;
+  color: gray;
 }
 
 .player-moves.disabled .btn-action {
-	cursor: not-allowed;
-	pointer-events: none;
-	border-color: lightgray;
-	color: gray;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: lightgray;
+  color: gray;
 }
 
 .btn-action.hidden-action {
-	display: none;
-}
-
-
-.player-container {
-	width: 100%;
-	padding: 0 25px;
+  display: none;
 }
