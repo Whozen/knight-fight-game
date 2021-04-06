@@ -313,7 +313,7 @@ class Player {
   }
 
   isAlive() {
-    var player1 = document.getElementById(this.self).children[2].children[1].value;
+    var player = document.getElementById(this.self).children[2].children[1].value;
 
     if(player <= 0) {
       return false;
@@ -378,10 +378,12 @@ function checkWinner() {
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player2').style.display = "block";
+    document.getElementById('turn_text').style.display = "none";
   } else if(p2 <= 0) {
     //alert("Player 1 wins!!!");
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player1').style.display = "block";
+    document.getElementById('turn_text').style.display = "none";
   }
 }
