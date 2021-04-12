@@ -18,10 +18,10 @@
         <div class="game-content flex">
           <div class="player-container player1" id="player1">
             <div class="player-img">
-              <img src="knight1.png" id="p1img" width="200" height="200">
-              <img src="explosion.gif" class="explosion-action" width="200" height="200">
-              <img src="slash.gif" class="slash-action" width="300">
-              <img src="thunder.gif" class="thunder-action" height="200">
+              <img src="assets/images/knight1.png" id="p1img" width="200" height="200">
+              <img src="assets/images/explosion.gif" class="explosion-action" width="200" height="200">
+              <img src="assets/images/slash.gif" class="slash-action" width="300">
+              <img src="assets/images/thunder.gif" class="thunder-action" height="200">
             </div>
             <div class="player-moves">
               <button onclick="player1.swordAttack()" class="btn-action">Sword Attack</button>
@@ -43,10 +43,10 @@
           </div>
           <div class="player-container player2" id="player2">
             <div class="player-img">
-              <img src="knight2.png" id="p2img" width="200" height="200">
-              <img src="explosion.gif" class="explosion-action" width="200" height="200">
-              <img src="slash.gif" class="slash-action" width="300">
-              <img src="thunder.gif" class="thunder-action" height="200">
+              <img src="assets/images/knight2.png" id="p2img" width="200" height="200">
+              <img src="assets/images/explosion.gif" class="explosion-action" width="200" height="200">
+              <img src="assets/images/slash.gif" class="slash-action" width="300">
+              <img src="assets/images/thunder.gif" class="thunder-action" height="200">
             </div>
             <div class="player-moves disabled">
               <button onclick="player2.swordAttack()" class="btn-action">Sword Attack</button>
@@ -69,13 +69,13 @@
         </div>
 
         <div class="end-container">
-          <div class="winner-content" style=" background-image: url('winner2.gif');">
+          <div class="winner-content" style=" background-image: url('assets/images/winner2.gif');">
             <div class="winner-img player1" id="winner_player1">
-              <img src="knight1.png" width="350" height="350">
+              <img src="assets/images/knight1.png" width="350" height="350">
               <p>Player 1 Wins!!!</p>
             </div>
             <div class="winner-img player2" id="winner_player2">
-              <img src="knight2.png" width="350" height="350">
+              <img src="assets/images/knight2.png" width="350" height="350">
               <p>Player 2 Wins!!!</p>
             </div>
           </div>
@@ -84,6 +84,7 @@
       </div>
     </div>
   </div>
+  <script src="components/player.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
