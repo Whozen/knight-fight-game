@@ -4,6 +4,7 @@ let player2 = new Player('player2','player1');
 var p1turn = true;
 var p2turn = false;
 
+//Toggle turn between users
 function changeTurn() {
   var p1 = document.getElementById('player1').children[1];
   var p2 = document.getElementById('player2').children[1];
@@ -50,13 +51,11 @@ function checkWinner() {
   var p2 = document.getElementById('player2').children[2].children[1].value;
 
   if(p1 <= 0) {
-    //alert("Player 2 wins!!!");
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player2').style.display = "block";
     document.getElementById('turn_text').style.display = "none";
   } else if(p2 <= 0) {
-    //alert("Player 1 wins!!!");
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player1').style.display = "block";
