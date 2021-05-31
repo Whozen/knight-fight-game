@@ -6,15 +6,21 @@
 </head>
 <body>
   <div class="main-container">
-    <!-- <div class="intro-background">
-      <div class="intro-container">
-        
-      </div>
-    </div> -->
-
     <div class="game-background">
-      <div class="game-container">
-        <p class="turn-text" id="turn_text">Player1 turn</p>
+      <div class="game-intro">
+        <div class="game-title">
+          <h1>Knight Fight</h1>
+        </div>
+
+        <div class="game-selection">
+          <h3>Choose your opponent</h3>
+          <button onclick="p2Choice('human')" class="btn-action">Player 2</button>
+          <button onclick="p2Choice('computer')" class="btn-action">Computer</button>
+        </div>
+      </div>
+
+      <div class="game-container" style="display: none;">
+        <p class="turn-text" id="turn_text">Player 1 turn</p>
         <div class="game-content flex">
           <div class="player-container player1" id="player1">
             <div class="player-img">

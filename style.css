@@ -24,11 +24,41 @@ body {
   z-index: 1;
 }
 
-.game-container {
+.game-intro {
   width: 1200px;
-  margin: 35px auto;
+  margin: 0 auto;
+  padding: 100px 0;
   z-index: 5; 
   position: relative;
+  height: 100vh;
+}
+
+.game-intro .game-title {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.game-intro .game-title h1 {
+  color: #fff;
+  font-size: 70px;
+}
+
+.game-intro .game-selection {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.game-intro .game-selection h3 {
+  color: #fff;
+}
+
+.game-container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 15px 0;
+  z-index: 5; 
+  position: relative;
+  height: 100vh;
 }
 
 .flex {
@@ -86,9 +116,9 @@ body {
   text-align: right;
 }
 
-.player-info {
+/*.player-info {
   margin: 20px 0;
-}
+}*/
 
 .player-info progress {
   display: block;
@@ -161,7 +191,7 @@ progress {
 }
 
 .player-info {
-  margin: 50px 0;
+  margin: 50px 0 20px 0;
 }
 
 .player-info h3 {
