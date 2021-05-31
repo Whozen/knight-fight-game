@@ -3,6 +3,13 @@ let player2 = new Player('player2','player1');
 
 var p1turn = true;
 var p2turn = false;
+var p2Type;
+
+function p2Choice(p2) {
+  p2Type = p2;
+  document.getElementsByClassName("game-container")[0].style.display = "block";
+  document.getElementsByClassName("game-intro")[0].style.display = "none";
+}
 
 //Toggle turn between users
 function changeTurn() {
@@ -16,7 +23,12 @@ function changeTurn() {
 
     p1.classList.add("disabled");
     p2.classList.remove("disabled");
-    tt.innerHTML = "Player2 turn";
+    
+    if(p2Type == "computer") {
+      tt.innerHTML = "Computer Turn";
+    } else {
+      tt.innerHTML = "Player 2 turn";
+    }
 
     if(player1.stolenDagger != 0) {
       player1.stolenDagger--;
@@ -24,9 +36,11 @@ function changeTurn() {
       p1.children[1].disabled = false;
     }
 
-    setTimeout(() => {
-      player2.autoPlayGame();
-    }, 2000);
+    if(p2Type == "computer") {
+      setTimeout(() => {
+        player2.autoPlayGame();
+      }, 2000);
+    }
 
   } else if(p2turn == true) {
     p1turn = true;
@@ -35,7 +49,7 @@ function changeTurn() {
     p2.classList.add("disabled");
     p1.classList.remove("disabled");
 
-    tt.innerHTML = "Player1 turn";
+    tt.innerHTML = "Player 1 turn";
 
     if(player2.stolenDagger != 0) {
       player2.stolenDagger--;
@@ -62,3 +76,13 @@ function checkWinner() {
     document.getElementById('turn_text').style.display = "none";
   }
 }
+
+// var player1 = 'player1';
+// var player2 = 'player2';
+
+// function p2Choice(p2) {
+//   player2 = this.p2;
+//   document.getElementsByClassName("game-background")[0].style.display = "block";
+//   document.getElementsByClassName("game-into")[0].style.display = "none";
+//   let game = new Game(player1, player2);
+// }
