@@ -3,13 +3,31 @@ let player2 = new Player('player2','player1');
 
 var p1turn = true;
 var p2turn = false;
-var p2Type;
+var p1name, p2name, p2Type;
 
 function p2Choice(p2) {
   p2Type = p2;
   document.getElementsByClassName("game-container")[0].style.display = "block";
   document.getElementsByClassName("game-intro")[0].style.display = "none";
 }
+
+
+function startGame() {
+  var selection = document.getElementsByName("opposition");
+
+  p1name = document.getElementsByName("p1name")[0].value;
+  p2name = document.getElementsByName("p2name")[0].value;
+
+  for(var i = 0; i < selection.length; i++) {
+    if(selection[i].checked) {
+      p2Type = selection[i].value;
+    }
+  }   
+
+  document.getElementsByClassName("game-container")[0].style.display = "block";
+  document.getElementsByClassName("game-intro")[0].style.display = "none";
+}
+
 
 //Toggle turn between users
 function changeTurn() {
@@ -25,9 +43,9 @@ function changeTurn() {
     p2.classList.remove("disabled");
     
     if(p2Type == "computer") {
-      tt.innerHTML = "Computer Turn";
+      tt.innerHTML = p2name +"'s turn";
     } else {
-      tt.innerHTML = "Player 2 turn";
+      tt.innerHTML = p1name + "'s turn";
     }
 
     if(player1.stolenDagger != 0) {
@@ -49,7 +67,7 @@ function changeTurn() {
     p2.classList.add("disabled");
     p1.classList.remove("disabled");
 
-    tt.innerHTML = "Player 1 turn";
+    tt.innerHTML = p1name + "'s turn";
 
     if(player2.stolenDagger != 0) {
       player2.stolenDagger--;

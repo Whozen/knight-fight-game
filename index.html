@@ -14,8 +14,29 @@
 
         <div class="game-selection">
           <h3>Choose your opponent</h3>
-          <button onclick="p2Choice('human')" class="btn-action">Player 2</button>
-          <button onclick="p2Choice('computer')" class="btn-action">Computer</button>
+
+          <div class="form">
+            <div class="form-group">
+              <label for="p1name">Player 1 Knight Name</label>
+              <input type="text" name="p1name" id="p1name" />
+            </div>
+            <div class="form-group">
+              <label for="p2name">Player 2 Knight Name</label>
+              <input type="text" name="p2name" id="p2name" />
+            </div>
+            <div class="form-group">
+              <input type="radio" id="computer" name="opposition" value="computer" checked />
+              <label for="computer">Computer Player</label>
+              <input type="radio" id="human" name="opposition" value="human" />
+              <label for="human">Human Player</label>
+            </div>
+            <button onclick="startGame()" class="btn-action">Start Game</button>
+          </div>
+
+          <div class="selection-button">
+            <button onclick="p2Choice('human')" class="btn-action">Human Player</button>
+            <button onclick="p2Choice('computer')" class="btn-action">Computer Player</button>
+          </div>
         </div>
       </div>
 
