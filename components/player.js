@@ -53,12 +53,14 @@ class Player {
       setTimeout(() => {
         this.endSlash();
       }, 500);
-      new Audio('assets/audio/sword_audio.mp3').play();
+      this.playAudio('sword_audio.mp3');
       setTimeout(() => {
         this.removeAnimationClass("hit-action");
-        checkWinner();
+        if(checkWinner()) {
+          return 0;
+        }
+        changeTurn();
       }, 500);
-      changeTurn();
     }
   }
 
@@ -123,12 +125,14 @@ class Player {
       this.movePlayer(10);
       this.animatePlayer("hit-action");
       this.updateAction(this.name + " moved closer and hit rival with a dagger.");
-      new Audio('assets/audio/sword_audio.mp3').play();
+      this.playAudio('sword_audio.mp3');
       setTimeout(() => {
         this.removeAnimationClass("hit-action");
-        checkWinner();
+        if(checkWinner()) {
+          return 0;
+        }
+        changeTurn();
       }, 500);
-      changeTurn();
     }
   }
 
@@ -140,7 +144,7 @@ class Player {
       this.animatePlayer("shield-action");
       this.movePlayer(-15);
       this.updateAction(this.name + " moved farther and shielded yourself.");
-      new Audio('assets/audio/shield_audio.mp3').play();
+      this.playAudio('shield_audio.mp3');
       setTimeout(() => {
         this.removeAnimationClass("shield-action");
       }, 500);
@@ -164,7 +168,7 @@ class Player {
           break;
         default: break;
       }
-      new Audio('assets/audio/magic_audio.mp3').play();
+      this.playAudio('magic_audio.mp3');
       this.showThunder();
       setTimeout(() => {
         this.endThunder();
@@ -223,7 +227,7 @@ class Player {
     } else {
       total_damage = damage;
     }
-    console.log(total_damage);
+    
     health.value = health.value - total_damage;
   }
 
@@ -298,13 +302,15 @@ class Player {
         this.endExplosion();
       }, 1000);
       this.updateAction(this.name + " hit rival with fire spear but i burnt your hand.");
-      new Audio('assets/audio/fire_audio.mp3').play();
+      this.playAudio('fire_audio.mp3');
       this.checkFireSpear();
       setTimeout(() => {
         this.removeAnimationClass("hit-action");
-        checkWinner();
+        if(checkWinner()) {
+          return 0;
+        }
+        changeTurn();
       }, 500);
-      changeTurn();
     }
   }
 
@@ -315,6 +321,10 @@ class Player {
     if(this.spearFlag == 0) {
       new_button.classList.add("hidden-action");
     }
+  }
+
+  playAudio(audio) {
+    new Audio('assets/audio/' + audio).play();
   }
 
   isAlive() {

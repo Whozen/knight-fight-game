@@ -15,23 +15,39 @@ let player2 = new Player('player2','player1', p2name);
 // Start the game
 function startGame() {
   initPlayers();   
-  validateData();
+  
+  if(validateData()) {
+    return 0;
+  }
+
   initState();
 }
 
 // Validate the data submitted by user in intro screen
 function validateData() {
+  var flag = 0;
+
   if(p1name.length < 1) {
     alert("Please enter Player 1's name");
+    flag = 1;
   } else if(p1name.length > 15) {
     alert("Player 1's name too long");
+    flag = 1;
   }
   
   if(p2name.length < 1) {
     alert("Please enter Player 2's name");
+    flag = 1;
   } else if(p2name.length > 15) {
     alert("Player 2's name too long");
+    flag = 1;
   } 
+
+  if(flag == 1) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 
@@ -85,7 +101,6 @@ function changeTurn() {
     p2turn = true;
 
     p1.classList.add("disabled");
-    p2.classList.remove("disabled");
     
     if(p2Type == "computer") {
       tt.innerHTML = p2name +"'s turn";
@@ -103,6 +118,8 @@ function changeTurn() {
       setTimeout(() => {
         player2.autoPlayGame();
       }, 2000);
+    } else {
+      p2.classList.remove("disabled");
     }
 
   } else if(p2turn == true) {
@@ -133,13 +150,17 @@ function checkWinner() {
     document.getElementById('winner_player2').style.display = "block";
     document.getElementById('winner_player2').children[1].innerHTML = p2name + " is the Winner!!!";
     document.getElementById('turn_text').style.display = "none";
+    return true;
   } else if(p2 <= 0) {
     document.getElementsByClassName("game-content")[0].style.display = "none";
     document.getElementsByClassName("end-container")[0].style.display = "block";
     document.getElementById('winner_player1').style.display = "block";
     document.getElementById('winner_player1').children[1].innerHTML = p1name + " is the Winner!!!";
     document.getElementById('turn_text').style.display = "none";
+    return true;
   }
+
+  return false;
 }
 
 // var player1 = 'player1';
