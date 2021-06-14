@@ -6,6 +6,11 @@ class Player {
     this.shielded = false;
     this.spearFlag = false;
     this.stolenDagger = 2;
+    this.name = self;
+  }
+
+  setName(name) {
+    this.name = name;
   }
 
   autoPlayGame() {
@@ -43,17 +48,19 @@ class Player {
     } else {
       this.hit(5);
       this.animatePlayer("hit-action");
-      this.updateAction("You hit rival with sword.");
+      this.updateAction(this.name + " hit rival with sword.");
       this.showSlash();
       setTimeout(() => {
         this.endSlash();
       }, 500);
-      new Audio('assets/audio/sword_audio.mp3').play();
+      this.playAudio('sword_audio.mp3');
       setTimeout(() => {
         this.removeAnimationClass("hit-action");
-        checkWinner();
+        if(checkWinner()) {
+          return 0;
+        }
+        changeTurn();
       }, 500);
-      changeTurn();
     }
   }
 
@@ -117,13 +124,15 @@ class Player {
       this.hit(10);
       this.movePlayer(10);
       this.animatePlayer("hit-action");
-      this.updateAction("You moved closer and hit rival with a dagger.");
-      new Audio('assets/audio/sword_audio.mp3').play();
+      this.updateAction(this.name + " moved closer and hit rival with a dagger.");
+      this.playAudio('sword_audio.mp3');
       setTimeout(() => {
         this.removeAnimationClass("hit-action");
-        checkWinner();
+        if(checkWinner()) {
+          return 0;
+        }
+        changeTurn();
       }, 500);
-      changeTurn();
     }
   }
 
@@ -134,8 +143,8 @@ class Player {
       this.setShielded(true);
       this.animatePlayer("shield-action");
       this.movePlayer(-15);
-      this.updateAction("You moved farther and shielded yourself.");
-      new Audio('assets/audio/shield_audio.mp3').play();
+      this.updateAction(this.name + " moved farther and shielded yourself.");
+      this.playAudio('shield_audio.mp3');
       setTimeout(() => {
         this.removeAnimationClass("shield-action");
       }, 500);
@@ -159,7 +168,7 @@ class Player {
           break;
         default: break;
       }
-      new Audio('assets/audio/magic_audio.mp3').play();
+      this.playAudio('magic_audio.mp3');
       this.showThunder();
       setTimeout(() => {
         this.endThunder();
@@ -176,7 +185,7 @@ class Player {
     new_button.classList.remove("hidden-action");
     this.spearFlag = 2;
 
-    this.updateAction("You used blackmagic. Satan gave you a spear that burns when used for two turns.");
+    this.updateAction(this.name + " used blackmagic. Satan gave you a spear that burns when used for two turns.");
   }
 
   isShielded() {
@@ -218,7 +227,7 @@ class Player {
     } else {
       total_damage = damage;
     }
-    console.log(total_damage);
+    
     health.value = health.value - total_damage;
   }
 
@@ -257,7 +266,7 @@ class Player {
     var temp = player.children[2].children[1].value;
     player.children[2].children[1].value = player.children[2].children[3].value;
     player.children[2].children[3].value = temp;
-    this.updateAction("You used blackmagic. Your health and distance values exchanged.");
+    this.updateAction(this.name + " used blackmagic. Your health and distance values exchanged.");
   }
 
   randomizeMoves() {
@@ -266,7 +275,7 @@ class Player {
     } else if(this.rival == "player1") {
       player1.setRandomMoves();
     }
-    this.updateAction("You randomized opponents moves.");
+    this.updateAction(this.name + " randomized opponents moves.");
   }
 
   setRandomMoves() {
@@ -278,7 +287,7 @@ class Player {
     var player2 = document.getElementById(this.rival);
     player2.children[1].children[1].disabled = true;
     this.stolenDagger = 2;
-    this.updateAction("You used blackmagic. You stole rivals dagger for two turns.");
+    this.updateAction(this.name + " used blackmagic. You stole rivals dagger for two turns.");
   }
 
   fireSpearAttack() {
@@ -292,14 +301,16 @@ class Player {
       setTimeout(() => {
         this.endExplosion();
       }, 1000);
-      this.updateAction("You hit rival with fire spear but i burnt your hand.");
-      new Audio('assets/audio/fire_audio.mp3').play();
+      this.updateAction(this.name + " hit rival with fire spear but i burnt your hand.");
+      this.playAudio('fire_audio.mp3');
       this.checkFireSpear();
       setTimeout(() => {
         this.removeAnimationClass("hit-action");
-        checkWinner();
+        if(checkWinner()) {
+          return 0;
+        }
+        changeTurn();
       }, 500);
-      changeTurn();
     }
   }
 
@@ -310,6 +321,10 @@ class Player {
     if(this.spearFlag == 0) {
       new_button.classList.add("hidden-action");
     }
+  }
+
+  playAudio(audio) {
+    new Audio('assets/audio/' + audio).play();
   }
 
   isAlive() {

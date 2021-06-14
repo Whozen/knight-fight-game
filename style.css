@@ -27,7 +27,7 @@ body {
 .game-intro {
   width: 1200px;
   margin: 0 auto;
-  padding: 100px 0;
+  padding: 30px 0;
   z-index: 5; 
   position: relative;
   height: 100vh;
@@ -35,22 +35,67 @@ body {
 
 .game-intro .game-title {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 }
 
 .game-intro .game-title h1 {
   color: #fff;
   font-size: 70px;
+  margin: 20px 0;
 }
 
 .game-intro .game-selection {
   text-align: center;
-  margin: 40px 0;
+  margin: 30px 0;
 }
 
 .game-intro .game-selection h3 {
   color: #fff;
+  margin: 20px 0;
 }
+
+
+/*========================================================================================*/
+.intro-form {
+  width: 400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.intro-form .form-control {
+  margin: 20px 0;
+}
+
+.intro-form .form-control label {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.intro-form .form-control input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+.intro-form .form-control .form-radio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intro-form .form-control .form-radio label {
+  margin-bottom: 0;
+}
+
+.intro-form .form-control .form-radio input {
+  width: 40px;
+}
+
+/*========================================================================================*/
 
 .game-container {
   width: 1200px;
@@ -207,6 +252,7 @@ progress {
 
 .end-container {
   display: none;
+  text-align: center;
 }
 
 .winner-content .winner-img {
@@ -217,11 +263,9 @@ progress {
 .winner-content .winner-img p {
   font-size: 30px;
   font-weight: bold;
+  color: #fff;
 }
 
-.end-container {
-  text-align: center;
-}
 
 .play-again {
   padding: 15px 20px;
