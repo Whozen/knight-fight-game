@@ -1,4 +1,5 @@
 import "./style.css";
+
 const Player = require("./components/player.js");
 
 var p1turn = true;

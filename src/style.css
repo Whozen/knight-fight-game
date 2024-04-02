@@ -6,7 +6,7 @@ body {
   box-sizing: border-box;
 }
 .game-background {
-  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/08e09130-b992-41f9-bdf6-9ac116532ae6/d6fz3kg-e9884def-8bee-4e7b-b545-b2ac6d3cbf8a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi8wOGUwOTEzMC1iOTkyLTQxZjktYmRmNi05YWMxMTY1MzJhZTYvZDZmejNrZy1lOTg4NGRlZi04YmVlLTRlN2ItYjU0NS1iMmFjNmQzY2JmOGEuanBnIn1dXX0.0D6bGfGrZlSs4uVZ_hGWepjL9hly4LU-DAPc26TTnQU");
+  background-image: url("./assets/images/main-background.jpg");
   background-position: center;
   background-size: cover;
   position: relative;
@@ -281,6 +281,10 @@ progress {
 .end-container {
   display: none;
   text-align: center;
+}
+
+.winner-content {
+  background-image: url("./assets/images/winner.gif");
 }
 
 .winner-content .winner-img {

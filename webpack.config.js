@@ -22,6 +22,23 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
+        test: /\html$/,
+        exclude: /node_modules/,
+        use: "html-loader",
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024,
+          },
+        },
+        generator: {
+          filename: "images/[hash][name][ext]",
+        },
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",

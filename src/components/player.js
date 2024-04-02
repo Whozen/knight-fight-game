@@ -48,7 +48,7 @@ module.exports = class Player {
         break;
     }
   }
-
+  
   swordAttack() {
     if (this.randomized == true) {
       this.randomMove();
